@@ -19,7 +19,7 @@ export async function Pdfloader(filePath) {
   const texts = await splitter.splitText(Doc[0].pageContent);
 
   const embeddings = new GoogleGenerativeAIEmbeddings({
-  apiKey: 'AIzaSyAKymig8vvmj8KZ6jICX6zewUR4o207S5M',
+  apiKey: 'process.env.GOOGLEAPIKEY',
   model: "text-embedding-004",
 });
 

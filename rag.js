@@ -32,4 +32,4 @@ async function queryMyRagSystem(query) {
     return answer;
 }
 
-app.listen(3000, () => console.log('Jarvis-RAG Bridge running on port 3000'));
+app.listen(process.env.PORT, () => console.log('Jarvis-RAG Bridge running on port 3000'));

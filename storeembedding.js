@@ -9,7 +9,7 @@ try{
    const INDEX_NAME = "vinaycompanyt";
 
 const pinecone = new Pinecone({
-  apiKey: 'pcsk_KQZZD_3iwRGd3sLzgA273qrH4oUtBtSks6do6BdjDR59G73u1BhzpTXegSQ3XwpvnAGKL',
+  apiKey: 'process.env.PINECONEKEY',
 });
 
 const existing_indexes = await pinecone.listIndexes();
