@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import  rag  from './retrival.js'; 
+import  {runRAG}  from './retrival.js'; 
 
 const app = express();
 app.use(cors());
@@ -28,7 +28,7 @@ app.post('/ask-jarvis', async (req, res) => {
 
 //  RAG call
 async function queryMyRagSystem(query) {
-   const answer = await rag(query)
+   const answer = await runRAG(query)
     return answer;
 }
 

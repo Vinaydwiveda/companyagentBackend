@@ -18,9 +18,11 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 
 async function getEmbedding(text) {
+  
   try {
     const model = genAI.getGenerativeModel({
-      model: "text-embedding-004"
+      model: 'text-embedding-004',
+    
     });
 
     const result = await model.embedContent({
@@ -67,18 +69,20 @@ export async function runRAG(userQuery) {
     topK: 3,
     includeMetadata: true
   });
+ 
 
   // Filter out low-confidence matches (Score < 0.5)
-  const relevantMatches = results.matches.filter(m => m.score > 0.5);
-  
+  const relevantMatches = results.matches.filter(m => m.score > 0.3);
+ 
   if (relevantMatches.length === 0) {
     return "Sir, that information is not in my current database.";
   }
 
   const context = relevantMatches.map(m => m.metadata.text).join("\n---\n");
+  
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const prompt = `You are Company Assistant, a corporate assistant. 
     Use the following internal documentation to answer.
     Context: ${context}
@@ -87,6 +91,7 @@ export async function runRAG(userQuery) {
     const result = await model.generateContent(prompt);
     return result.response.text();
   } catch (err) {
+    console.log(err);
     return "Sir, the AI core is experiencing connectivity issues.";
   }
 }
